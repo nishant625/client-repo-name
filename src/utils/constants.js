@@ -4,6 +4,10 @@ export const API_BASE = BACKEND_URL
   ? `${BACKEND_URL.replace(/\/+$/, '')}/api/tasks`
   : '/api/tasks'
 
+export const HEALTH_URL = BACKEND_URL
+  ? `${BACKEND_URL.replace(/\/+$/, '')}/api/health`
+  : '/api/health'
+
 export const PRIORITIES = {
   LOW: 'low',
   MEDIUM: 'medium',

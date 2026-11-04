@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { API_BASE } from '../utils/constants.js'
+import { API_BASE, HEALTH_URL } from '../utils/constants.js'
+
+export const checkHealth = async () => {
+  const response = await axios.get(HEALTH_URL, { timeout: 15000 })
+  return response.data
+}
 
 export const fetchTasks = async (weekDate) => {
   const response = await axios.get(API_BASE, {
@@ -41,4 +46,3 @@ export const fetchTaskSummary = async (weekDate) => {
   })
   return response.data
 }
-

@@ -4,6 +4,7 @@ import OnboardingPage from './pages/onboarding-page.jsx'
 import HomePage from './pages/home-page.jsx'
 import SearchPage from './pages/search-page.jsx'
 import TaskModal from './components/task/task-modal.jsx'
+import ServerStatus from './components/ui/server-status.jsx'
 import useWeek from './hooks/use-week.js'
 import useTasks from './hooks/use-tasks.js'
 
@@ -39,6 +40,8 @@ const App = () => {
 
   return (
     <>
+      <ServerStatus />
+
       {currentView === 'onboarding' && (
         <OnboardingPage onComplete={() => setCurrentView('home')} />
       )}
