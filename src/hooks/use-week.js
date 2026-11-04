@@ -17,10 +17,24 @@ export const useWeek = () => {
     setWeekDates(getWeekDates(nextDate))
   }
 
+  const prevWeek = () => {
+    const nextDate = new Date(selectedDate)
+    nextDate.setDate(nextDate.getDate() - 7)
+    selectDate(nextDate)
+  }
+
+  const nextWeek = () => {
+    const nextDate = new Date(selectedDate)
+    nextDate.setDate(nextDate.getDate() + 7)
+    selectDate(nextDate)
+  }
+
   return {
     selectedDate,
     weekDates,
     selectDate,
+    prevWeek,
+    nextWeek,
     mondayISO
   }
 }

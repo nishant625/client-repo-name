@@ -15,7 +15,7 @@ const App = () => {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
 
-  const { selectedDate, weekDates, selectDate, mondayISO } = useWeek()
+  const { selectedDate, weekDates, selectDate, prevWeek, nextWeek, mondayISO } = useWeek()
   const { tasks, summary, addTask, editTask, removeTask, toggleTask } = useTasks(mondayISO)
 
   const handleOpenCreateModal = () => {
@@ -61,6 +61,8 @@ const App = () => {
           selectedDate={selectedDate}
           weekDates={weekDates}
           onSelectDate={selectDate}
+          onPrevWeek={prevWeek}
+          onNextWeek={nextWeek}
           tasks={tasks}
           summary={summary}
           onToggleTask={toggleTask}

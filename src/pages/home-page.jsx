@@ -15,6 +15,8 @@ const HomePage = ({
   selectedDate,
   weekDates,
   onSelectDate,
+  onPrevWeek,
+  onNextWeek,
   tasks,
   summary,
   onToggleTask,
@@ -25,6 +27,7 @@ const HomePage = ({
 }) => {
   const [activeTab, setActiveTab] = useState('list')
   const [isWeekExpanded, setIsWeekExpanded] = useState(false)
+  const [notificationMsg, setNotificationMsg] = useState('')
 
   const todayTasks = useMemo(() => {
     return tasks.filter((t) => isSameDay(t.date, selectedDate))
@@ -32,9 +35,29 @@ const HomePage = ({
 
   const displayedTasks = isWeekExpanded ? tasks : todayTasks
 
+  const handleBellClick = () => {
+    const openCount = summary?.open || 0
+    setNotificationMsg(
+      openCount > 0
+        ? `You have ${openCount} open ${openCount === 1 ? 'task' : 'tasks'} for this week.`
+        : 'All tasks are complete! Great job.'
+    )
+    setTimeout(() => setNotificationMsg(''), 3000)
+  }
+
   return (
     <div className="min-h-screen bg-white p-4 pb-28 max-w-md mx-auto relative">
-      <SearchBar onClick={onOpenSearch} />
+      {notificationMsg && (
+        <div className="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-xs px-4 py-2 rounded-xl shadow-lg animate-fade-in">
+          {notificationMsg}
+        </div>
+      )}
+
+      <SearchBar
+        onClick={onOpenSearch}
+        pendingCount={summary?.open || 0}
+        onBellClick={handleBellClick}
+      />
 
       <WeekStrip
         weekDates={weekDates}
@@ -43,6 +66,8 @@ const HomePage = ({
           onSelectDate(date)
           setIsWeekExpanded(false)
         }}
+        onPrevWeek={onPrevWeek}
+        onNextWeek={onNextWeek}
       />
 
       <div className="my-3">
